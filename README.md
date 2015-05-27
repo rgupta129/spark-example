@@ -1,2 +1,2 @@
 # spark-example
-Spark Examples using Pythin and Scala
+Spark Examples using Python and Scala
