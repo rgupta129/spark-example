@@ -1,3 +1,5 @@
+import sys
+import optparse
 from pyspark import SparkContext
 
 class SparkCacheExample:
@@ -21,7 +23,7 @@ class SparkCacheExample:
     def printCountLines(self):
         print "Lines Count: " + str(self.inputRdd.count())
         return self
-
+        
     def printFilteredLines(self, inputFilter):
         filteredRdd = self.inputRdd.filter(lambda line: inputFilter in line)
         print "Lines containing (" + inputFilter + "):"
@@ -34,7 +36,19 @@ if __name__ == "__main__":
     # Submit this program using the following command:
     # $SPARK_HOME/bin/spark-submit SparkCacheExample.py
     #
-    inputFile = "/etc/hosts"
-    shouldCache = True
+    parser = optparse.OptionParser(usage='%prog [options]')
+    parser.add_option('--cache', action="store_true", dest='shouldCache', default=False)
+    parser.add_option('--input', action="store", dest='input', default=None)
+    parser.add_option('--filter', action="append", dest='filters', default=[])
+
+    options, remainder = parser.parse_args()
+    print options
+    inputFile = "/etc/hosts" if options.input == None else options.input
+    shouldCache = options.shouldCache
+    filters = options.filters
     obj = SparkCacheExample(inputFile, shouldCache)
-    obj().printCountLines().printFilteredLines("9").printFilteredLines("com").printCountLines().printFilteredLines("net")
+    obj()
+
+    obj.printCountLines()
+    for filter in filters:
+        obj.printFilteredLines(filter)
