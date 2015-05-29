@@ -1,0 +1,129 @@
+{
+  "metadata" : {
+    "name" : "SparkExample",
+    "user_save_timestamp" : "1969-12-31T16:00:00.000Z",
+    "auto_save_timestamp" : "1969-12-31T16:00:00.000Z",
+    "language_info" : {
+      "name" : "scala",
+      "file_extension" : "scala",
+      "codemirror_mode" : "text/x-scala"
+    },
+    "trusted" : true,
+    "customLocalRepo" : null,
+    "customRepos" : null,
+    "customDeps" : null,
+    "customImports" : null,
+    "customSparkConf" : null
+  },
+  "cells" : [ {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false
+    },
+    "cell_type" : "code",
+    "source" : "val rdd = sc.textFile(\"/etc/hosts\")",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "rdd: org.apache.spark.rdd.RDD[String] = /etc/hosts MapPartitionsRDD[1] at textFile at <console>:37\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : "/etc/hosts MapPartitionsRDD[1] at textFile at &lt;console&gt;:37\n <div class='pull-right text-info'><small>488 milliseconds</small></div>"
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 4
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false
+    },
+    "cell_type" : "code",
+    "source" : "rdd.count()",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "res1: Long = 28\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : "28\n <div class='pull-right text-info'><small>622 milliseconds</small></div>"
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 5
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false
+    },
+    "cell_type" : "code",
+    "source" : "val filtered_rdd = rdd.filter(_.contains(\"localhost\"))",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "filtered_rdd: org.apache.spark.rdd.RDD[String] = MapPartitionsRDD[4] at filter at <console>:39\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : "MapPartitionsRDD[4] at filter at &lt;console&gt;:39\n <div class='pull-right text-info'><small>183 milliseconds</small></div>"
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 9
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false
+    },
+    "cell_type" : "code",
+    "source" : "filtered_rdd.collect()",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "res3: Array[String] = Array(# localhost is used to configure the loopback interface, 127.0.0.1\tlocalhost, \"::1             localhost \", fe80::1%lo0\tlocalhost)\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : "[Ljava.lang.String;@21feade1\n <div class='pull-right text-info'><small>200 milliseconds</small></div>"
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 10
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : false
+    },
+    "cell_type" : "code",
+    "source" : "filtered_rdd.foreach(println)",
+    "outputs" : [ {
+      "name" : "stdout",
+      "output_type" : "stream",
+      "text" : "# localhost is used to configure the loopback interface\n127.0.0.1\tlocalhost\n::1             localhost \nfe80::1%lo0\tlocalhost\n"
+    }, {
+      "metadata" : { },
+      "data" : {
+        "text/html" : "\n <div class='pull-right text-info'><small>350 milliseconds</small></div>"
+      },
+      "output_type" : "execute_result",
+      "execution_count" : 11
+    } ]
+  }, {
+    "metadata" : {
+      "trusted" : true,
+      "input_collapsed" : false,
+      "collapsed" : true
+    },
+    "cell_type" : "code",
+    "source" : "",
+    "outputs" : [ ]
+  } ],
+  "nbformat" : 4
+}
