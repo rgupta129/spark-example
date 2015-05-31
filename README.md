@@ -1,5 +1,5 @@
 # spark-example
-Spark Examples using Python and Scala
+Spark Examples in Python and Scala using ipython notebook
 
 Setting up and running Python Notebook
 
